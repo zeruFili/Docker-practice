@@ -1,0 +1,26 @@
+name: Build and Publish image to Docker Hub
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'Dockerfile'
+
+jobs:
+  publish_images:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      # Checks out the repository so the workflow can access the Dockerfile
+      uses: actions/checkout@v4
+      
+    - name: Build image
+      # Builds the Docker image, tagging it with the latest tag
+      run: |
+        docker build . -t zerufili/node-web-app:latest
+        
+    - name: Push image to Docker Hub
+      # Logs in using the provided secret and pushes the image
+      run: |
+        docker login -u zerufili -p ${{ secrets.DOCKER_HUB_TOKEN }}
+        docker push zerufili/node-web-app:latest
