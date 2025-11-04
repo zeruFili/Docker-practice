@@ -16,4 +16,4 @@ EXPOSE 3000
 
 USER node
 
-CMD [ "node", "start" ]
+CMD [ "npm", "start" ]
