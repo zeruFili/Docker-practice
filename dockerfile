@@ -19,4 +19,4 @@ EXPOSE 3000
 USER node
 
 # Start the application
-CMD ["npm", "start"]
+CMD ["node", "start"]
