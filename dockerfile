@@ -1,19 +1,22 @@
 FROM node:18-alpine
 
-#Create a app directory
+# Create an app directory
 WORKDIR /app
 
-#Install app dependencies
+# Install app dependencies
 COPY package*.json ./
 
-# Run npm install, but only for production dependencies
-RUN npm install --only=production
+# Install only production dependencies
+RUN npm install --production
 
-#Bundle app souce
+# Copy the rest of the application files
 COPY . .
 
+# Expose the application port
 EXPOSE 3000
 
+# Use a non-root user to run the application
 USER node
 
-CMD [ "npm", "start" ]
+# Start the application
+CMD ["npm", "start"]
