@@ -18,5 +18,8 @@ EXPOSE 3000
 # Use a non-root user to run the application
 USER node
 
+# Set environment variable
+ENV NODE_ENV=production
+
 # Start the application
 CMD ["npm", "start"]
