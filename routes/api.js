@@ -1,32 +1,20 @@
 import express from "express";
-import dotenv from "dotenv";
 import os from "os";
-dotenv.config();
 
-const PORT = process.env.PORT || 8080;
-const app = express();
+const router = express.Router();
 
-// Middleware to parse JSON bodies
-app.use(express.json());
-
-// Request logging middleware
-app.use((req, res, next) => {
-  const timestamp = new Date().toISOString();
-  console.log(`[${timestamp}] ${req.method} ${req.path} - IP: ${req.ip}`);
-  next();
-});
-
-app.get("/", (req, res) => {
+// Root endpoint
+router.get("/", (req, res) => {
   res.json({ message: "The application is running successfully with the mounted volume." });
 });
 
-// New endpoint to check server status
-app.get("/status", (req, res) => {
+// Server status endpoint
+router.get("/status", (req, res) => {
   res.json({ status: "Server is up and running", time: new Date() });
 });
 
 // Detailed health check endpoint with system information
-app.get("/health", (req, res) => {
+router.get("/health", (req, res) => {
   const uptime = process.uptime();
   const memoryUsage = process.memoryUsage();
   const cpuCount = os.cpus().length;
@@ -53,6 +41,6 @@ app.get("/health", (req, res) => {
   });
 });
 
-app.listen(PORT, () => {
-  console.log(`App running on port ${PORT}`);
-});
+export default router;
+
+
