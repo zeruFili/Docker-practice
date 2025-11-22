@@ -1,30 +1,30 @@
-# Use the official lightweight Node.js image.
+# Use the official Node.js image with Alpine
 FROM node:18-alpine
 
-# Create a working directory for the app.
+# Create an app directory
 WORKDIR /app
 
-# Copy package.json and package-lock.json for dependencies installation.
+# Copy package.json and package-lock.json (if available) for dependency installation
 COPY package*.json ./
 
-# Install only production dependencies to reduce image size.
-RUN npm install --production
+# Install only production dependencies to keep the image lean
+RUN npm ci --only=production
 
-# Copy the rest of the application files to the container.
+# Copy the rest of the application files
 COPY . .
 
-# Expose the application on port 3000.
-EXPOSE 3000
+# Expose the application port
+EXPOSE 3030
 
-# Switch to a non-root user for security.
+# Use a non-root user to run the application for security
 USER node
 
-# Set the environment variable indicating the application is in production mode.
+# Set environment variable for production
 ENV NODE_ENV=production
 
-# Healthcheck to monitor the application. 
+# Implement a health check for the application
 HEALTHCHECK --interval=30s --timeout=5s --retries=3 \
   CMD curl -f http://localhost:3000/health || exit 1
 
-# Command to start the application.
+# Start the application
 CMD ["npm", "start"]
