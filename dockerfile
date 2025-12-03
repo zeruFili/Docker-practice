@@ -22,9 +22,7 @@ USER node
 # Set environment variable for production
 ENV NODE_ENV=production
 
-# Implement a health check for the application
-HEALTHCHECK --interval=30s --timeout=5s --retries=3 \
-  CMD curl -f http://localhost:3000/health || exit 1
+
 
 # Start the application
 CMD ["npm", "start"]
