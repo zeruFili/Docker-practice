@@ -26,5 +26,8 @@ USER node
 ENV NODE_ENV=production
 ENV PORT=3030
 
+# Clear npm cache to reduce image size
+RUN npm cache clean --force
+
 # Start the application
 CMD ["npm", "start"]
