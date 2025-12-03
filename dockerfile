@@ -19,7 +19,7 @@ COPY . .
 # Expose the application port
 EXPOSE 3030
 
-# Use a non-root user to run the application for security
+# Use a non-root user to run the application for enhanced security
 USER node
 
 # Set environment variable for production
