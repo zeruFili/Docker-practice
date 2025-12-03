@@ -21,8 +21,7 @@ USER node
 
 # Set environment variable for production
 ENV NODE_ENV=production
-
-
+ENV PORT=3030
 
 # Start the application
 CMD ["npm", "start"]
